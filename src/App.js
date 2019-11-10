@@ -64,7 +64,6 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input }, () => {
-      // console.log(this.state);
       fetch("https://vast-forest-29631.herokuapp.com/image", {
         method: "put",
         headers: { "Content-Type": "application/json" },
@@ -74,8 +73,6 @@ class App extends Component {
       })
         .then(response => response.json())
         .then(data => {
-          // var user = { ...this.state.user };
-          // user.entries = data.entries;
           this.setState(state => (state.user.entries = data.entries));
         })
         .catch(err => console.log(err));
@@ -87,8 +84,6 @@ class App extends Component {
               response.outputs[0].data.regions[0].region_info.bounding_box
             )
           );
-          // this.displayFaceBox1(this.calculateFaceLocation(response.outputs[0].data.regions[1].region_info.bounding_box))
-          // this.displayFaceBox2(this.calculateFaceLocation2(response.outputs[0].data.regions[2].region_info.bounding_box))
         });
     });
   };
@@ -110,17 +105,10 @@ class App extends Component {
     // console.log(box);
     this.setState({ box: box });
   };
-  // displayFaceBox1 = box1 => {
-  //   console.log(box1);
-  //   this.setState({ box1: box1 });
-  // };
-  // displayFaceBox2 = box2 => {
-  //   console.log(box2);
-  //   this.setState({ box2: box2 });
-  // };
+
   onRouteChange = route => {
     if (route === "signout") {
-      this.setState({ isSignedIn: false });
+      this.setState(initialState);
     } else if (route === "home") {
       this.setState({ isSignedIn: true });
     }
