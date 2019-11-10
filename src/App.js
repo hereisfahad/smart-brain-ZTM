@@ -65,7 +65,7 @@ class App extends Component {
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input }, () => {
       // console.log(this.state);
-      fetch("http://localhost:3001/image", {
+      fetch("https://agitated-keller-51e4cd.netlify.com/image", {
         method: "put",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -74,11 +74,10 @@ class App extends Component {
       })
         .then(response => response.json())
         .then(data => {
-          var user = { ...this.state.user };
-          user.entries = data.entries;
-          this.setState({ user });
+          // var user = { ...this.state.user };
+          // user.entries = data.entries;
+          this.setState(state => (state.user.entries = data.entries));
         })
-        // .catch(console.log)
         .catch(err => console.log(err));
       app.models
         .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
