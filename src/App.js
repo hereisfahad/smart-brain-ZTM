@@ -29,8 +29,8 @@ const initialState = {
   input: "",
   imageUrl: "",
   box: {},
-  // route: "signin",
-  route: "home",
+  route: "signin",
+  // route: "home",
   isSignedIn: false,
   user: {
     id: "",
@@ -48,7 +48,6 @@ class App extends Component {
   }
 
   loadUser = data => {
-    console.log(data);
     this.setState({
       user: {
         id: data._id,
@@ -65,7 +64,22 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input }, () => {
-      console.log(this.state);
+      // console.log(this.state);
+      fetch("http://localhost:3001/image", {
+        method: "put",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: this.state.user.id
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          var user = { ...this.state.user };
+          user.entries = data.entries;
+          this.setState({ user });
+        })
+        // .catch(console.log)
+        .catch(err => console.log(err));
       app.models
         .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
         .then(response => {
@@ -77,27 +91,10 @@ class App extends Component {
           // this.displayFaceBox1(this.calculateFaceLocation(response.outputs[0].data.regions[1].region_info.bounding_box))
           // this.displayFaceBox2(this.calculateFaceLocation2(response.outputs[0].data.regions[2].region_info.bounding_box))
         });
-      fetch("http://localhost:3001/image", {
-        method: "put",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: this.state.user.id
-        })
-      })
-        .then(response => response.json())
-        .then(data => {
-          // console.log(entries);
-          // this.setState({ entries: entries });
-          let user = Object.assign(this.state.user, { entries: data.entries });
-          this.setState({ user: user });
-          this.forceUpdate();
-        })
-        // .catch(console.log)
-        .catch(err => console.log(err));
     });
   };
   calculateFaceLocation = data => {
-    console.log(data);
+    // console.log(data);
     const clarifaiFace = data;
     const image = document.getElementById("inputimage");
     const width = Number(image.width);
@@ -111,7 +108,7 @@ class App extends Component {
   };
 
   displayFaceBox = box => {
-    console.log(box);
+    // console.log(box);
     this.setState({ box: box });
   };
   // displayFaceBox1 = box1 => {
@@ -155,6 +152,16 @@ class App extends Component {
               // box1={this.state.box1}
               // box2={this.state.box2}
             />
+          </div>
+        ) : route === "test" ? (
+          <div>
+            <Logo />
+            <ImageLinkForm
+              value
+              onInputChange={this.onInputChange}
+              onButtonSubmit={this.onButtonSubmit}
+            />
+            <FaceRecognition imageUrl={imageUrl} box={box} />
           </div>
         ) : route === "signin" ? (
           <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
