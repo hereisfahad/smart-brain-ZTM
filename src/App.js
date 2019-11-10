@@ -65,7 +65,7 @@ class App extends Component {
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input }, () => {
       // console.log(this.state);
-      fetch("https://agitated-keller-51e4cd.netlify.com/image", {
+      fetch("https://vast-forest-29631.herokuapp.com/image", {
         method: "put",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
