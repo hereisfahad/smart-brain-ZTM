@@ -105,6 +105,25 @@ class App extends Component {
     // console.log(box);
     this.setState({ box: box });
   };
+  deleteUser = async () => {
+    try {
+      const resp = await fetch(
+        " https://vast-forest-29631.herokuapp.com/delete",
+        {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: this.state.user.id
+          })
+        }
+      );
+      console.log(resp);
+      const data = await resp.json();
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   onRouteChange = route => {
     if (route === "signout") {
@@ -123,6 +142,7 @@ class App extends Component {
         <Navigation
           isSignedIn={isSignedIn}
           onRouteChange={this.onRouteChange}
+          deleteUser={this.deleteUser}
         />
         {route === "home" ? (
           <div>
