@@ -164,10 +164,7 @@ class App extends Component {
           <div>
             <Logo />
             <p
-              style={{
-                outline: "none",
-                color: "#E1E1E1"
-              }}
+              style={{ outline: "none", color: "#E1E1E1" }}
               contentEditable="true"
               suppressContentEditableWarning={true}
               onClick={e => {
