@@ -163,6 +163,20 @@ class App extends Component {
         ) : route === "test" ? (
           <div>
             <Logo />
+            <p
+              style={{
+                outline: "none",
+                color: "#E1E1E1"
+              }}
+              contentEditable="true"
+              suppressContentEditableWarning={true}
+              onClick={e => {
+                document.execCommand("selectAll");
+                document.execCommand("copy");
+              }}
+            >
+              https://images.unsplash.com/photo-1542080681-b52d382432af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80
+            </p>
             <ImageLinkForm
               value
               onInputChange={this.onInputChange}
