@@ -38,7 +38,8 @@ const initialState = {
     email: "",
     entries: 0,
     joined: ""
-  }
+  },
+  fullScreen: false
 };
 
 class App extends Component {
@@ -133,7 +134,15 @@ class App extends Component {
     }
     this.setState({ route: route });
   };
-
+  toggleFullScreen = () => {
+    if (!this.state.fullScreen) {
+      document.documentElement.requestFullscreen();
+      this.setState({ fullScreen: true });
+    } else {
+      document.exitFullscreen();
+      this.setState({ fullScreen: false });
+    }
+  };
   render() {
     const { isSignedIn, imageUrl, route, box, user } = this.state;
     return (
@@ -180,6 +189,16 @@ class App extends Component {
               onButtonSubmit={this.onButtonSubmit}
             />
             <FaceRecognition imageUrl={imageUrl} box={box} />
+            <i
+              className="fas fa-compress"
+              onClick={() => this.toggleFullScreen()}
+              style={{
+                fontSize: "45px",
+                position: "fixed",
+                bottom: "13px",
+                right: "33px"
+              }}
+            ></i>
           </div>
         ) : route === "signin" ? (
           <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
