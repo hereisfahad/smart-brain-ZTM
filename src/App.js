@@ -192,12 +192,7 @@ class App extends Component {
             <i
               className="fas fa-compress"
               onClick={() => this.toggleFullScreen()}
-              style={{
-                fontSize: "45px",
-                position: "fixed",
-                bottom: "13px",
-                right: "33px"
-              }}
+              
             ></i>
           </div>
         ) : route === "signin" ? (
