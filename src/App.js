@@ -173,6 +173,7 @@ class App extends Component {
           <div>
             <Logo />
             <p
+              className="tooltip"
               style={{ outline: "none", color: "#E1E1E1" }}
               contentEditable="true"
               suppressContentEditableWarning={true}
@@ -181,6 +182,9 @@ class App extends Component {
                 document.execCommand("copy");
               }}
             >
+              <span className="tooltiptext" contentEditable="false">
+                Click To Copy
+              </span>
               https://images.unsplash.com/photo-1542080681-b52d382432af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80
             </p>
             <ImageLinkForm
@@ -192,7 +196,6 @@ class App extends Component {
             <i
               className="fas fa-compress"
               onClick={() => this.toggleFullScreen()}
-              
             ></i>
           </div>
         ) : route === "signin" ? (
