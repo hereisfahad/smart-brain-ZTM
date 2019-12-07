@@ -168,6 +168,10 @@ class App extends Component {
               // box1={this.state.box1}
               // box2={this.state.box2}
             />
+            <i
+              className="fas fa-compress"
+              onClick={() => this.toggleFullScreen()}
+            ></i>
           </div>
         ) : route === "test" ? (
           <div>
@@ -206,6 +210,10 @@ class App extends Component {
             onRouteChange={this.onRouteChange}
           />
         )}
+        <i
+          className="fas fa-compress"
+          onClick={() => this.toggleFullScreen()}
+        ></i>
       </div>
     );
   }
